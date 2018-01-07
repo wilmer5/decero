@@ -77,6 +77,7 @@ return [
     'unique'               => ':attribute ya ha sido registrado.',
     'url'                  => 'El formato :attribute es inválido.',
     'captcha'              => 'El código captcha ingresado no es correcto',
+    'recaptcha' => 'El código captcha ingresado no es correcto.',
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
