@@ -111,6 +111,7 @@ return [
         'last_name'             => 'apellido',
         'password'              => 'contraseña',
         'password_confirmation' => 'confirmación de la contraseña',
+        'current_password'      => 'contraseña anterior',
         'city'                  => 'ciudad',
         'country'               => 'país',
         'address'               => 'dirección',

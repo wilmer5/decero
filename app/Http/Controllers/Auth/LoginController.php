@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -27,6 +28,7 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/home';
 
+    
     /**
      * Create a new controller instance.
      *
@@ -36,4 +38,22 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    protected function validateLogin()
+    {
+        //Esto valida que se envie el captcha
+        // $this->validate(request(), [
+        //     'g-recaptcha-response' => 'required|recaptcha',
+        // ]);
+
+        //Esto valida que la cuenta este activada
+        $messages = [
+            'email.exists' => 'Su cuenta no se encuentra activa.',
+        ];
+
+        $this->validate(request(), [
+            $this->username() => 'required|exists:users,email,activada,0', 'password' => 'required'
+        ], $messages);
+    }
+
 }
