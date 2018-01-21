@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Auth;
+use Session;
 use App\User;
-use App\Registro;
+use App\Mensaje;
+
 
 class HomeController extends Controller
 {
@@ -27,8 +29,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $current = date("Y-m-d"); //fecha de hoy
-        //$current = '2017-06-25';
+        //$current = date("Y-m-d"); //fecha de hoy
+        $current = '2017-06-25';
         $site = Auth::user()->id; //Id usuario Autenticado
         
         $valores = $this->consultarvalores($site, $current);
@@ -37,6 +39,45 @@ class HomeController extends Controller
         return view('home')->with(array('valores' => $valores, 'datosgrafica' => $datosgrafica));
         
     }
+
+    public function smartlinks(){
+        return view('smartlinks');
+    }
+
+    public function mensajes(Request $request){
+
+        if ($request->isMethod('post')){            
+
+            if ( $request["mensaje"] ) {
+
+                $data = new Mensaje;
+                $data->idusuario = Auth::user()->id;
+                $data->to = 1; 
+                $data->mensaje = $request["mensaje"];
+                $data->save();
+                Session::flash('message', "Mensaje enviado! ");
+
+            } else{
+                Session::flash('error', "Debe escribir el mensaje.");
+            }
+        }
+
+        $site = Auth::user()->id; //Id usuario Autenticado
+        $site = 2;
+        $mensajes = Mensaje::where('idusuario', '=', $site)->where('to', '=', $site, 'or')->orderBy('fecha', 'desc')->get();
+        //return $mensajes;
+
+        return view('mensajes')->with('valores', $mensajes);
+
+    }        
+
+    public function referidos(){
+        $site = Auth::user()->id; //Id usuario Autenticado
+        $site = 7;
+        $results = DB::select('select created_at as fecha,name,skype,facebook,email from users where referidor = :site', ['site' => $site]);
+
+        return view('referidos')->with('valores', $results);
+    }    
 
     public function logout(Request $request) {
       Auth::logout();

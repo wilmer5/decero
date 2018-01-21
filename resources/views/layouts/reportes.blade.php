@@ -49,7 +49,7 @@
   <div class="col-lg-12">
     <div class="box box-success">
             <div class="box-header">
-              <h3 class="box-title">Gráfica de Progreso</h3>
+              <h3 class="box-title">Gráfica de Progreso desde el {{ date('d-m-Y', strtotime($first)) }} hasta el {{ date('d-m-Y', strtotime($last)) }} </h3>
             </div>
             <div class="box-body">
               @yield('graficaes')
@@ -62,7 +62,7 @@
 	<div class="col-lg-12">
 		<div class="box box-danger">
             <div class="box-header">
-              <h3 class="box-title">Tabla Estadística </h3>
+              <h3 class="box-title">Tabla Estadística desde el {{ date('d-m-Y', strtotime($first)) }} hasta el {{ date('d-m-Y', strtotime($last)) }}</h3>
             </div>
             <div class="box-body">
               <div class="table-responsive">
@@ -95,8 +95,8 @@
   $(function () {
 
     $('#lgerev').DataTable({
-        pagingType: 'full',
-        "order": [[ 1, "desc" ]],
+        //pagingType: 'full',
+        "order": [[ @yield('order'), "desc" ]],
         language: {
         "info":           "Mostrando _START_ de _END_ de _TOTAL_ registros totales",
         "infoEmpty":      "Mostrando 0 de 0 de 0 registros",

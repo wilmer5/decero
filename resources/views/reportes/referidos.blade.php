@@ -1,7 +1,7 @@
 @extends('layouts.reportes')
 
 @section('titlereporte') 
-	General 
+	Referidos 
 @stop
 
 @section('graficaes')
@@ -14,20 +14,16 @@
 
 <thead>
     <tr>
-        <th>Fecha</th>
-        <th>Visitas</th>
-        <th>Conversiones</th>
-        <th>CTR</th>
-        <th>Ingresos</th>
+        <th>Item #</th>
+        <th>Referido</th>
+        <th>Ingreso</th>
     </tr>
 </thead>
 <tbody>
   @foreach ( $valores as $valor )
   <tr> 
-    <td> {{ $valor->fecha }} </td>
-    <td> {{ $valor->clicks }} </td>
-    <td> {{ $valor->altas }} </td>
-    <td>  0 </td>
+    <td> {{ $loop->iteration }} </td>
+    <td> {{ utf8_decode($valor->name) }} </td>
     <td> {{ round($valor->total, 2, PHP_ROUND_HALF_DOWN) }} </td>
   </tr>
   @endforeach
@@ -36,7 +32,7 @@
 @stop
 
 @section('order')
-1
+2
 @stop
 
 @section('datosgrafica')
@@ -48,22 +44,17 @@
     }
 </style>
 <script type="text/javascript">
-var MONTHS = [ @foreach ( $valores as $dato ) "{{ $dato->fecha }}", @endforeach ];
+var MONTHS = [ @foreach ( $valores as $dato ) "{{ utf8_decode($dato->name) }}", @endforeach ];
 
 
     var config = {
       type: 'line',
       data: {
-        labels: [ @foreach ( $valores as $dato ) "{{ $dato->fecha }}", @endforeach ],
+        labels: [ @foreach ( $valores as $dato ) "{{ utf8_decode($dato->name) }}", @endforeach ],
         datasets: [{
-          label: "Conversiones",
-          borderColor: 'rgb(0,163,203)',
-          backgroundColor: 'rgb(0,163,203)',
-          data: [ @foreach ( $valores as $dato ) "{{ $dato->altas }}", @endforeach ],
-        }, {
           label: "Ganancias",
-          borderColor: 'rgb(192,192,192)',
-          backgroundColor: 'rgb(192,192,192)',
+          borderColor: 'rgb(102,102,255)',
+          backgroundColor: 'rgb(102,102,255)',
           data: [ @foreach ( $valores as $dato ) "{{ round($dato->total, 2, PHP_ROUND_HALF_DOWN) }}", @endforeach ],
         }]
       },
@@ -71,7 +62,7 @@ var MONTHS = [ @foreach ( $valores as $dato ) "{{ $dato->fecha }}", @endforeach 
         responsive: true,
         title:{
           display:false,
-          text:"Progreso de Ganancias Mobingresos"
+          text:"Progreso de Ganancias por referido"
         },
         tooltips: {
           mode: 'index',

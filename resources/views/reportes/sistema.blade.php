@@ -1,7 +1,7 @@
 @extends('layouts.reportes')
 
 @section('titlereporte') 
-	Paises 
+	Sistema Operativo 
 @stop
 
 @section('graficaes')
@@ -22,7 +22,7 @@
 
 <thead>
     <tr>
-        <th>Pais</th>
+        <th>Sistema Operativo</th>
         <th>Visitas</th>
         <th>Conversiones</th>
         <th>CTR</th>
@@ -32,7 +32,7 @@
 <tbody>
   @foreach ( $valores as $valor )
   <tr> 
-    <td> {{ $valor->pais }} </td>
+    <td> {{ $valor->so }} </td>
     <td> {{ $valor->clicks }} </td>
     <td> {{ $valor->altas }} </td>
     <td>  0 </td>
@@ -75,7 +75,7 @@
                 ],
                 label: 'Dataset 1'
             }],
-            labels: [@foreach ( $valores as $dato ) "{{ $dato->pais }}", @endforeach]
+            labels: [@foreach ( $valores as $dato ) "{{ $dato->so }}", @endforeach]
         },
         options: {
             responsive: true,
@@ -85,7 +85,7 @@
             },
             title: {
                 display: true,
-                text: 'Paises con más Clicks'
+                text: 'Sistema con más Clicks'
             },
             animation: {
                 animateScale: true,
@@ -106,7 +106,7 @@
                 ],
                 label: 'Dataset 1'
             }],
-            labels: [@foreach ( $valores as $dato ) "{{ $dato->pais }}", @endforeach]
+            labels: [@foreach ( $valores as $dato ) "{{ $dato->so }}", @endforeach]
         },
         options: {
             responsive: true,
@@ -116,7 +116,7 @@
             },
             title: {
                 display: true,
-                text: 'Paises con más Conversiones'
+                text: 'Sistema con más Conversiones'
             },
             animation: {
                 animateScale: true,
@@ -137,7 +137,7 @@
                 ],
                 label: 'Dataset 1'
             }],
-            labels: [@foreach ( $valores as $dato ) "{{ $dato->pais }}", @endforeach]
+            labels: [@foreach ( $valores as $dato ) "{{ $dato->so }}", @endforeach]
         },
         options: {
             responsive: true,
@@ -147,7 +147,7 @@
             },
             title: {
                 display: true,
-                text: 'Paises con más Ganancias'
+                text: 'Sistema con más Ganancias'
             },
             animation: {
                 animateScale: true,
